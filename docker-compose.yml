@@ -1,23 +1,30 @@
 version: '3.8'
 
 services:
-  app:
+  frontend:
     build:
-      context: ./
+      context: ./frontend
       dockerfile: Dockerfile
     volumes:
-      - ./backend/src:/usr/src/app/src
-      - ./backend/public/upload:/usr/src/app/public/upload
-      - ./frontend/build:/usr/src/app/public
+      - ./frontend/src:/usr/src/app/src
     ports:
-      - '3000:3000'
+      - '3001:3001'
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true
+      - PORT=3001
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'  
     env_file:
-      - ./.env
+      - ./backend/.env
     depends_on:
       - db
       - db_backup
-    networks:
-      - backend-network
 
   db:
     image: mariadb:10.6
@@ -27,8 +34,6 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_TCP_PORT=3307
       - MYSQL_DATABASE=okoce
-    networks:
-      - backend-network
     volumes:
       - db_data:/var/lib/mysql
 
@@ -40,8 +45,6 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_TCP_PORT=3308
       - MYSQL_DATABASE=okoce_backup
-    networks:
-      - backend-network
     volumes:
       - db_backup_data:/var/lib/mysql
 
@@ -56,8 +59,6 @@ services:
       - PMA_HOST=db
       - PMA_PASSWORD=password
       - PMA_USER=testuser
-    networks:
-      - backend-network
 
 networks:
   backend-network:
