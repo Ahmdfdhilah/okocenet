@@ -1,55 +1,55 @@
 # OK OCE NET
 
-This project is a full-stack application built with NestJS for the backend and React for the frontend, utilizing Docker for containerization.
+Proyek ini adalah aplikasi full-stack yang dibangun dengan NestJS untuk backend dan React untuk frontend, menggunakan Docker untuk kontainerisasi.
 
-## Table of Contents
+## Daftar Isi
 
 - [OK OCE NET](#ok-oce-net)
-  - [Table of Contents](#table-of-contents)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Cloning the Repository](#cloning-the-repository)
-  - [Architecture](#architecture)
+  - [Daftar Isi](#daftar-isi)
+  - [Memulai](#memulai)
+    - [Prasyarat](#prasyarat)
+    - [Mengkloning Repository](#mengkloning-repository)
+  - [Arsitektur](#arsitektur)
     - [Backend](#backend)
     - [Frontend](#frontend)
-  - [Docker Setup](#docker-setup)
+  - [Pengaturan Docker](#pengaturan-docker)
     - [Dockerfile (Backend)](#dockerfile-backend)
     - [Dockerfile (Frontend)](#dockerfile-frontend)
     - [docker-compose.yml](#docker-composeyml)
-  - [API Documentation](#api-documentation)
-    - [Key Middleware and Security Features](#key-middleware-and-security-features)
-  - [Git Submodules](#git-submodules)
-  - [Database Backup](#database-backup)
-  - [Redis Usage](#redis-usage)
-    - [Configuration](#configuration)
-    - [Usage](#usage)
-  - [Conclusion](#conclusion)
+  - [Dokumentasi API](#dokumentasi-api)
+    - [Fitur Middleware dan Keamanan Utama](#fitur-middleware-dan-keamanan-utama)
+  - [Submodul Git](#submodul-git)
+  - [Backup Database](#backup-database)
+  - [Penggunaan Redis](#penggunaan-redis)
+    - [Konfigurasi](#konfigurasi)
+  - [Kesimpulan](#kesimpulan)
+  - [Requirements untuk Produksi](#requirements-untuk-produksi)
 
-## Getting Started
+## Memulai
 
-### Prerequisites
+### Prasyarat
 
 - Docker
 - Docker Compose
 
-### Cloning the Repository
+### Mengkloning Repository
 
 ```bash
 git clone --recurse-submodules https://github.com/Ahmdfdhilah/okocnet.git
 cd okocnet
 ```
 
-## Architecture
+## Arsitektur
 
 ### Backend
 
-The backend is built with NestJS and follows a modular architecture, using TypeORM for database interactions. It features several modules, including user management, news, internships, donations, and more.
+Backend dibangun dengan NestJS dan mengikuti arsitektur modular, menggunakan TypeORM untuk interaksi database. Ini memiliki beberapa modul, termasuk manajemen pengguna, berita, magang, donasi, dan lainnya.
 
 ### Frontend
 
-The frontend is built with React and handles user interactions, making API calls to the backend services.
+Frontend dibangun dengan React dan menangani interaksi pengguna, melakukan panggilan API ke layanan backend.
 
-## Docker Setup
+## Pengaturan Docker
 
 ### Dockerfile (Backend)
 
@@ -165,19 +165,19 @@ volumes:
   db_backup_data:
 ```
 
-## API Documentation
+## Dokumentasi API
 
-The API is documented using Swagger. You can access the documentation by navigating to `http://localhost:3000/api` after starting the backend service.
+API didokumentasikan menggunakan Swagger. Anda dapat mengakses dokumentasi dengan menavigasi ke `https://okocenet-72f35a89c2ef.herokuapp.com/api` setelah memulai layanan backend.
 
-### Key Middleware and Security Features
+### Fitur Middleware dan Keamanan Utama
 
-- **Helmet**: Adds security headers to HTTP responses.
-- **Rate Limiting**: Limits the number of requests per IP to prevent abuse.
-- **Content Security Policy (CSP)**: Restricts resource loading to enhance security.
+- **Helmet**: Menambahkan header keamanan ke respons HTTP.
+- **Rate Limiting**: Membatasi jumlah permintaan per IP untuk mencegah penyalahgunaan.
+- **Content Security Policy (CSP)**: Membatasi pemuatan sumber daya untuk meningkatkan keamanan.
 
-## Git Submodules
+## Submodul Git
 
-This project uses Git submodules for the backend and frontend:
+Proyek ini menggunakan submodul Git untuk backend dan frontend:
 
 ```git
 [submodule "backend"]
@@ -188,34 +188,34 @@ This project uses Git submodules for the backend and frontend:
     url = https://github.com/Ahmdfdhilah/okocnetfrontend
 ```
 
-## Database Backup
+## Backup Database
 
-The application is configured with a backup database to ensure data redundancy and reliability. This is managed using two separate MariaDB containers:
+Aplikasi ini dikonfigurasi dengan database cadangan untuk memastikan redundansi data dan keandalan. Ini dikelola menggunakan dua kontainer MariaDB terpisah:
 
-- **db**: The primary MariaDB database service.
-- **db_backup**: The backup MariaDB database service.
+- **db**: Layanan database MariaDB utama.
+- **db_backup**: Layanan database MariaDB cadangan.
 
-Both databases are defined in the `docker-compose.yml` file, and each has its own volume for persistent storage. The backup database serves as a failover solution to prevent data loss in case of issues with the primary database.
+Kedua database didefinisikan dalam file `docker-compose.yml`, dan masing-masing memiliki volume sendiri untuk penyimpanan persisten. Database cadangan berfungsi sebagai solusi failover untuk mencegah kehilangan data jika terjadi masalah dengan database utama.
 
-By setting up these two database services, we ensure that there is always a backup available, minimizing the risk of data loss and enhancing the reliability of the application.
+Dengan mengatur dua layanan database ini, kami memastikan bahwa selalu ada cadangan yang tersedia, meminimalkan risiko kehilangan data, dan meningkatkan keandalan aplikasi.
 
-## Redis Usage
+## Penggunaan Redis
 
-The application utilizes Redis for caching and improving performance. Specifically, it uses Upstash Redis, a serverless Redis solution that offers low latency and high availability. Here's how Redis is integrated into the backend:
+Aplikasi ini memanfaatkan Redis untuk caching dan meningkatkan kinerja. Secara khusus, menggunakan Upstash Redis, solusi Redis tanpa server yang menawarkan latensi rendah dan ketersediaan tinggi. Berikut cara integrasi Redis ke backend:
 
-1. **Installation**: Ensure the `@upstash/redis` package is installed in your NestJS application.
+1. **Instalasi**: Pastikan paket `@upstash/redis` terinstal dalam aplikasi NestJS Anda.
 
 ```bash
 npm install @upstash/redis
 ```
 
-2. **Configuration**: Configure Redis connection settings using Upstash environment variables.
+2. **Konfigurasi**: Konfigurasi pengaturan koneksi Redis menggunakan variabel lingkungan Upstash.
 
-3. **Usage**: Implement caching strategies in your services to store frequently accessed data in Redis, reducing the load on your database and speeding up response times.
+3. **Penggunaan**: Implementasikan strategi caching dalam layanan Anda untuk menyimpan data yang sering diakses dalam Redis, mengurangi beban pada database dan mempercepat waktu respons.
 
-### Configuration
+### Konfigurasi
 
-Create a Redis client using Upstash Redis:
+Buat klien Redis menggunakan Upstash Redis:
 
 ```typescript
 import { Redis } from '@upstash/redis';
@@ -228,29 +228,15 @@ const redis = new Redis({
 export default redis;
 ```
 
-### Usage
+Dengan mengintegrasikan Upstash Redis, Anda dapat meningkatkan kinerja dan skalabilitas aplikasi melalui mekanisme caching yang efisien.
 
-Use Redis in your services:
+## Kesimpulan
 
-```typescript
-import redis from './redis-client';
+Ikuti instruksi ini untuk mengatur dan menjalankan aplikasi OK OCE NET. Untuk masalah apa pun, silakan merujuk ke dokumentasi atau halaman masalah GitHub untuk bantuan atau hubungi saya di WhatsApp 089647107815.
 
-class CacheService {
-  async setCache(key: string, value: any) {
-    await redis.set(key, JSON.stringify(value), { ex: 3600 }); // Cache for 1 hour
-  }
+## Requirements untuk Produksi
 
-  async getCache(key: string) {
-    const data = await redis.get(key);
-    return data ? JSON.parse(data) : null;
-  }
-}
-
-export default new CacheService();
-```
-
-By integrating Upstash Redis, you can enhance the performance and scalability of your application through efficient caching mechanisms.
-
-## Conclusion
-
-Follow these instructions to set up and run the OK OCE NET application. For any issues, please refer to the documentation or the GitHub issues page for assistance or hit me up at whatsapp 089647107815.
+- Redis menggunakan serverless Redis dari Upstash
+- Database dan backup database MySQL menggunakan CleverCloud
+- Backend menggunakan Heroku
+- Frontend menggunakan Vercel
