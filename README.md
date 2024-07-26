@@ -167,7 +167,7 @@ volumes:
 
 ## Dokumentasi API
 
-API didokumentasikan menggunakan Swagger. Anda dapat mengakses dokumentasi dengan menavigasi ke `https://okocenet-72f35a89c2ef.herokuapp.com/api` setelah memulai layanan backend.
+API didokumentasikan menggunakan Swagger. Anda dapat mengakses dokumentasi dengan menavigasi ke `http://localhost:3000/api` setelah memulai layanan backend.
 
 ### Fitur Middleware dan Keamanan Utama
 
